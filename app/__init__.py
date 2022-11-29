@@ -13,5 +13,5 @@ migrate = Migrate(app, db)
 
 jwt = JWTManager(app)
 
-from app.model import gambar, post, tanya
+from app.model import gambar, post, tanya, document, fatwa
 from app import routes
