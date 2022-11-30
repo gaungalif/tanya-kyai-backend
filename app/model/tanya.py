@@ -7,7 +7,7 @@ class Tanya(db.Model):
     id = db.Column(db.BigInteger, primary_key=True, autoincrement=True)
     googleuid = db.Column(db.String(100), nullable=False)
     isi = db.Column(db.String(1500), nullable=False)
-    gambar_id = db.Column(db.BigInteger, db.ForeignKey('gambar.id'), nullable=True)
+    # gambar_id = db.Column(db.BigInteger, db.ForeignKey('gambar.id'), nullable=True)
     
     def __repr__(self):
-        return '<pertanyaan {}>'.format(self.name)
+        return '<Tanya {}>'.format(self.name)
