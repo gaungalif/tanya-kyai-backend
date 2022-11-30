@@ -14,22 +14,40 @@ def index():
     return 'Hello Flask Ahoy'
 
 #create post app route
-@app.route('/posts', methods=['GET'])
+@app.route('/posts', methods=['GET', 'POST'])
 @cross_origin()
 def PostList():
-    return PostController.PostList()
+    if request.method == 'GET':
+        return PostController.PostList()
+    else:
+        return PostController.PostAdd()
 
-@app.route('/posts/<id>', methods=['GET'])
+
+@app.route('/posts/<id>', methods=['GET', 'DELETE'])
 @cross_origin()
 def PostbyID(id):
-    return PostController.PostbyID(id)
+    if request.method == 'GET':
+        return PostController.PostbyID(id)
+    # elif request.method == 'PUT':
+    #     return PostController.PostUpdate(id)
+    else:
+        return PostController.PostDelete(id)
 
-@app.route('/questions', methods=['GET'])
+
+@app.route('/questions', methods=['GET', 'POST'])
 @cross_origin()
 def TanyaList():
-    return TanyaController.TanyaList()
+    if request.method == 'GET':
+        return TanyaController.TanyaList()
+    else:
+        return TanyaController.TanyaAdd()
+
 
 @app.route('/questions/<id>', methods=['GET'])
 @cross_origin()
 def TanyabyID(id):
     return TanyaController.TanyabyID(id)
+
+@app.route('/file-upload', methods=['POST'])
+def uploads():
+    return UserController.upload()

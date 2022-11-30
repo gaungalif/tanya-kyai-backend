@@ -18,16 +18,16 @@ def upload():
         if 'file' not in request.files:
             return response.badRequest([],'File tidak tersedia')
 
-        File = request.files['file']
+        docs = request.files['file']
 
-        if File.filename == '':
+        if docs.filename == '':
             return response.badRequest([],'File tidak tersedia')
-        if File and uploadconfig.allowed_file(File.filename):
+        if docs and uploadconfig.allowed_file(docs.filename):
             uid = uuid.uuid4()
-            filename = secure_filename(File.filename)
+            filename = secure_filename(docs.filename)
             renamefile = "Flask-"+str(uid)+filename
 
-            File.save(os.path.join(app.config['UPLOAD_FOLDER'], renamefile))
+            docs.save(os.path.join(app.config['UPLOAD_FOLDER'], renamefile))
 
             uploads = Gambar(judul=judul, pathname=renamefile)
             db.session.add(uploads)

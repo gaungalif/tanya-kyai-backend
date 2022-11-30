@@ -36,3 +36,26 @@ def TanyabyID(id):
     
     except Exception as e:
         print(e)
+
+    # id = db.Column(db.BigInteger, primary_key=True, autoincrement=True)
+    # googleuid = db.Column(db.String(100), nullable=False)
+    # isi = db.Column(db.String(1500), nullable=False)        
+def TanyaAdd():
+    try:
+        isi = request.form.get('isi')
+        googleuid = request.form.get('googleuid')
+        gambar_id = request.form.get('gambar_id')
+
+        inputs = [{
+            'isi': isi,
+            'googleuid': googleuid,
+            # 'gambar_id': 1
+        }]
+
+        tanyaAdd = Tanya(isi=isi, googleuid=googleuid)
+        db.session.add(tanyaAdd)
+        db.session.commit()
+
+        return response.success(inputs, 'Sukses Menambahkan Pertanyaan')
+    except Exception as e:
+        print(e)
