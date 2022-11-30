@@ -7,7 +7,7 @@ from werkzeug.utils import secure_filename
 
 
 from datetime import datetime
-from flask_jwt_extended import *
+# from flask_jwt_extended import *
 
 
 
