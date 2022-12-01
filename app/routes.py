@@ -64,3 +64,13 @@ def TanyabyID(id):
 def uploads():
     return UserController.upload()
 
+# @app.route('/bio', methods=['POST'])
+# def bio():
+#     return UserController.bio()
+
+# @app.route('/image-upload', methods=['POST'])
+# @cross_origin()
+# def parse_markdown():
+#     image = request.files['image']
+    
+#     return UserController.image_upload()
