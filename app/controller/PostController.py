@@ -52,7 +52,6 @@ def PostAdd():
         # output.headers.add("Access-Control-Allow-Origin", "*")
         isi = output['isi']
         tanya_id = output['tanya_id']
-        upload
         
         postAdd = Post(isi = isi, tanya_id = tanya_id)
         db.session.add(postAdd)
