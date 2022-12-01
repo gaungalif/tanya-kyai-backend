@@ -2,29 +2,34 @@ from app import app, response
 from app.controller import UserController
 from app.controller import TanyaController
 from app.controller import PostController
-from flask import request
-from flask import jsonify
+from flask import request, Response, jsonify
 # from flask_jwt_extended import get_jwt_identity
 # from flask_jwt_extended import jwt_required
 from flask_cors import cross_origin
 
 @app.route('/')
 @cross_origin()
-def index():
-    return 'Hello Flask Ahoy'
+def home():
+    resp = Response("hello") #here you could use make_response(render_template(...)) too
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    resp.headers['ngrok-skip-browser-warning'] = "69420"
+    return resp
+# def index():
+#     return Response(headers={'Access-Control-Allow-Origin':'*'})
 
 #create post app route
 @app.route('/posts', methods=['GET', 'POST'])
-# @cross_origin()
+@cross_origin()
 def Posts():
     if request.method == 'GET':
         return PostController.PostList()
-    else:
+    elif request.method == 'POST':
         return PostController.PostAdd()
-
+    else:
+        return response.badRequest([], 'Invalid Method')
     
 @app.route('/posts/<id>', methods=['GET', 'DELETE'])
-# @cross_origin()
+@cross_origin()
 def PostbyID(id):
     if request.method == 'GET':
         return PostController.PostbyID(id)
@@ -33,7 +38,7 @@ def PostbyID(id):
 
 
 @app.route('/questions', methods=['GET', 'POST'])
-# @cross_origin()
+@cross_origin()
 def Tanyas():
     if request.method == 'GET':
         return TanyaController.TanyaList()
@@ -41,10 +46,19 @@ def Tanyas():
         return TanyaController.TanyaAdd()
 
 
-@app.route('/questions/<id>', methods=['GET'])
-# @cross_origin()
+@app.after_request
+def add_header(response):
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    return response
+
+
+@app.route('/questions/<id>', methods=['GET', 'DELETE'])
+@cross_origin()
 def TanyabyID(id):
-    return TanyaController.TanyabyID(id)
+    if request.method == 'GET':
+        return TanyaController.TanyabyID(id)
+    else:
+        return TanyaController.TanyaDelete(id)
 
 @app.route('/file-upload', methods=['POST'])
 def uploads():

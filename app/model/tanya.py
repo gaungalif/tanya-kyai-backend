@@ -4,7 +4,7 @@ from app.model.gambar import Gambar
 
 class Tanya(db.Model):
     id = db.Column(db.BigInteger, primary_key=True, autoincrement=True)
-    googleuid = db.Column(db.String(100), nullable=False)
+    # googleuid = db.Column(db.String(100), nullable=True)
     isi = db.Column(db.String(1500), nullable=False)
     
     def __repr__(self):

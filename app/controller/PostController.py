@@ -2,7 +2,7 @@ from app.model.post import Post
 from app.model.tanya import Tanya 
 
 from app import response, app, db
-from flask import request, jsonify
+from flask import request, jsonify, make_response, Response
 
 
 def PostList():
@@ -39,11 +39,20 @@ def PostbyID(id):
     except Exception as e:
         print(e)
 
+# def _build_cors_preflight_response():
+#     response = Response()
+#     response.headers.add("Access-Control-Allow-Origin", "*")
+#     response.headers.add("Access-Control-Allow-Headers", "*")
+#     response.headers.add("Access-Control-Allow-Methods", "*")
+#     return response
+
 def PostAdd():
     try:
         output = request.get_json()
+        # output.headers.add("Access-Control-Allow-Origin", "*")
         isi = output['isi']
         tanya_id = output['tanya_id']
+        upload
         
         postAdd = Post(isi = isi, tanya_id = tanya_id)
         db.session.add(postAdd)
